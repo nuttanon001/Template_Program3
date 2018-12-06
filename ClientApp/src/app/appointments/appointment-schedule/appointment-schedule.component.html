@@ -1,0 +1,28 @@
+<div>
+  <!--<div style="display:flex; flex-direction:row;">
+    <button mat-mini-fab color="primary" (click)="loadevents()"
+            matTooltip="Get Schedule">
+      <mat-icon>get_app</mat-icon>
+    </button>
+  </div>
+  <hr />-->
+  <!--<div *ngIf="isLoading" class="loading-shade">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  </div>-->
+  <div *ngIf="calendarOptions">
+    <!--#ucCalendar-->
+    <ng-fullcalendar #ucCalendar [options]="calendarOptions"
+                     (dayClick)="dayClick($event.detail)"
+                     (eventClick)="eventClick($event.detail)"
+                     (eventDrop)="updateEvent($event.detail)"
+                     (eventResize)="updateEvent($event.detail)"
+                     (clickButton)="clickButton($event.detail)"
+                     [(eventsModel)]="events">
+    </ng-fullcalendar>
+  </div>
+</div>
+
+<!--
+<a (click)="loadevents()"> loadevents</a>
+<p>Display event : {{displayEvent | json}}</p>
+-->

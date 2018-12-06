@@ -1,0 +1,26 @@
+<div *ngIf="InfoValue;else elseBlock">
+  <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+    <mat-step>
+      <ng-template matStepLabel>
+        <strong><b>Customer Information</b></strong>
+      </ng-template>
+      <ng-container *ngIf="regConfig">
+        <dynamic-form [fields]="regConfig" (submit)="submitDynamicForm($event)">
+        </dynamic-form>
+      </ng-container>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>
+        <strong><b>Pet(s) Information</b></strong>
+      </ng-template>
+      <app-pet-table [dataRows]="InfoValue.Pets" (returnSelectedWith)="OnPetAction($event)"
+                     [readOnly]="denySave">
+      </app-pet-table>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+<ng-template #elseBlock>
+  <mat-progress-bar mode="indeterminate" style="margin-top:50px;"></mat-progress-bar>
+  Waiting... for loading
+</ng-template>

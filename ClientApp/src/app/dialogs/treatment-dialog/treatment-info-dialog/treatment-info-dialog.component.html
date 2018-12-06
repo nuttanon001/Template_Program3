@@ -1,0 +1,29 @@
+<div *ngIf="InfoValue;else elseBlock">
+  <div class="form-container-column">
+    <mat-accordion class="headers-align">
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+        <!--Header-->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <strong>Treatment Information</strong>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-container *ngIf="regConfig">
+          <dynamic-form [fields]="regConfig" (submit)="submitDynamicForm($event)">
+          </dynamic-form>
+        </ng-container>
+        <!--Command-->
+        <mat-action-row>
+          <button mat-button color="primary" (click)="endStep()" [disabled]="!isValid">
+            <strong>End</strong>
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  <mat-progress-bar mode="indeterminate" style="margin-top:50px;"></mat-progress-bar>
+  Waiting... for loading
+</ng-template>

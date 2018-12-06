@@ -1,0 +1,21 @@
+@import "../../../shared/styles/table.style.scss";
+
+.mat-table {
+  overflow: auto;
+  height: calc(#{$dialog-vh} - 150px);
+  width: calc(#{$dialog-vw} - 45px);
+}
+
+.mat-column-Command {
+  max-width: 150px !important;
+}
+
+.mat-column-Name, .mat-column-Description {
+  width: 250px;
+  max-width: 250px;
+}
+
+table {
+  overflow: auto;
+  width: 100%;
+}

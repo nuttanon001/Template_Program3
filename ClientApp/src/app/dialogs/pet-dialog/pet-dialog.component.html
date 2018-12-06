@@ -1,0 +1,30 @@
+<div class="master-dialog-vh">
+  <H5 style="color:cadetblue">Pet(s) Information</H5>
+  <div class="child-container">
+    <div class="center-content">
+      <div *ngIf="!InfoValue;else InfoBlock">
+        <div *ngIf="!data.multi;else ElseBlock">
+          <app-pet-table-dialog (returnSelected)="onSelectedValue($event)" (returnSelectedWith)="onEditInfo($event)"></app-pet-table-dialog>
+        </div>
+        <ng-template #ElseBlock>
+          <app-pet-table-dialog (returnSelectesd)="onSelectedValues($event)" (returnSelectedWith)="onEditInfo($event)" [isMultiple]="true"></app-pet-table-dialog>
+        </ng-template>
+      </div>
+      <ng-template #InfoBlock>
+        <app-pet-info-dialog [InfoValue]="InfoValue" (SubmitOrCancel)="onInfoComplate($event)">
+        </app-pet-info-dialog>
+      </ng-template>
+    </div>
+    <div class="right-content">
+      <button mat-mini-fab color="primary" (click)="onSelectedClick()" matTooltip="primary"
+              [disabled]="(!getValue && !getValues)">
+        <mat-icon>done</mat-icon>
+      </button>
+      <hr />
+      <button mat-mini-fab color="warn" (click)="onCancelClick()"
+              matTooltip="close dialog">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

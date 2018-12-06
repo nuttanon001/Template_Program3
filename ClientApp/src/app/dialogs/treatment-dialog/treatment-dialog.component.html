@@ -1,0 +1,22 @@
+<div class="master-dialog-vh">
+  <H5 style="color:cadetblue">Treatment Information</H5>
+  <div class="child-container">
+    <div class="center-content">
+      <div *ngIf="InfoValue">
+        <app-treatment-info-dialog [InfoValue]="InfoValue" (SubmitOrCancel)="onInfoComplate($event)">
+        </app-treatment-info-dialog>
+      </div>
+    </div>
+    <div class="right-content ml-1">
+      <button mat-mini-fab color="primary" (click)="onSelectedClick()" matTooltip="primary"
+              [disabled]="(!getValue && !getValues)">
+        <mat-icon>done</mat-icon>
+      </button>
+      <hr />
+      <button mat-mini-fab color="warn" (click)="onCancelClick()"
+              matTooltip="close dialog">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

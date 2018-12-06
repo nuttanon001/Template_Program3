@@ -1,0 +1,34 @@
+<div *ngIf="InfoValue;else elseBlock">
+  <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+    <mat-step>
+      <ng-template matStepLabel>
+        <strong><b>Diagnoses Information</b></strong>
+      </ng-template>
+      <ng-container *ngIf="regConfig">
+        <dynamic-form [fields]="regConfig" (submit)="submitDynamicForm($event)">
+        </dynamic-form>
+      </ng-container>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>
+        <strong><b>Diagnose(s) list Information</b></strong>
+      </ng-template>
+      <app-diagnoses-table [dataRows]="InfoValue.Diagnoses" (returnSelectedWith)="OnDiagnosesAction($event)"
+                           [readOnly]="denySave">
+      </app-diagnoses-table>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>
+        <strong><b>Treatment(s) list Information</b></strong>
+      </ng-template>
+      <app-treatment-table [dataRows]="InfoValue.Treatments" (returnSelectedWith)="OnTreatmentsAction($event)"
+                           [readOnly]="denySave">
+      </app-treatment-table>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+<ng-template #elseBlock>
+  <mat-progress-bar mode="indeterminate" style="margin-top:50px;"></mat-progress-bar>
+  Waiting... for loading
+</ng-template>
