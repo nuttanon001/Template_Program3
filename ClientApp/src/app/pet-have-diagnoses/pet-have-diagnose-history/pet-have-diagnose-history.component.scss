@@ -1,0 +1,40 @@
+@import "../../shared/styles/info.style.scss";
+
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  text-align: center;
+
+  mat-form-field {
+    width: 200px;
+    min-height: 50px;
+    margin: 5px;
+  }
+}
+
+.detail {
+  max-height: 90%;
+  align-items: flex-start;
+  align-self: flex-start;
+}
+
+.line-time {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  text-align: center;
+  border-bottom: 1px solid #D5D5D5;
+}
+
+.title-item {
+  width: 80px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.empty-item-text {
+  background-color: #f1f1f1;
+  height: 18px;
+  animation: pulse 1s infinite ease-in-out;
+}

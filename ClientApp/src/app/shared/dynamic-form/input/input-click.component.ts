@@ -33,6 +33,21 @@ import { filter } from "rxjs/operators";
   .click-input {
     cursor: pointer;
   }
+
+  @media(max-width: 600px)
+  {
+    .app-input {
+      margin: 5px;
+      width:100%;
+
+      mat-form-field {
+        width: 90%;
+        min-height:50px;
+        margin:5px;
+      }
+    }
+  }
+
 `]
 })
 export class InputClickComponent implements OnInit,OnDestroy {

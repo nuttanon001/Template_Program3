@@ -39,5 +39,4 @@ export class MedicineDialogComponent extends BaseDialogEntryComponent<Medicine,M
       }
     }
   }
-
 }

@@ -11,8 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Template_Program.Services;
 using Template_Program.ViewModels;
 using Template_Program.Models;
-using AutoMapper;
 using Template_Program.Helper;
+// 3rd Party
+using AutoMapper;
 
 namespace Template_Program.Controllers
 {
@@ -262,11 +263,95 @@ namespace Template_Program.Controllers
         }
 
         // POST: api/PetHaceDiagosis/HistoryDiagnosis
-        //[HttpPost]
-        //public async Task<IActionResult> HistoryDiagnosis([FromBody] HistoryDiagnosisViewModel history)
-        //{
-        //    return NoContent();
-        //}
+        [HttpPost("HistoryDiagnosis")]
+        public async Task<IActionResult> HistoryDiagnosis([FromBody] HistoryDiagnosisViewModel history)
+        {
+            var Message = "";
+            try
+            {
+                if (history != null)
+                {
+                    var predicate = PredicateBuilder.True<PetHaveDiagnosis>();
+
+                    if (history.PetId.HasValue)
+                        predicate = predicate.And(x => x.PetId == history.PetId);
+
+                    if (history.CustomerId.HasValue)
+                        predicate = predicate.And(x => x.Pet.CustomerId == history.CustomerId);
+
+                    if (history.SDate.HasValue)
+                        predicate = predicate.And(x => x.DiagnosisDate.Date >= history.SDate.Value.Date);
+
+                    if (history.EDate.HasValue)
+                        predicate = predicate.And(x => x.DiagnosisDate <= history.EDate.Value.Date);
+                    // Order by
+                    Func<IQueryable<PetHaveDiagnosis>, IOrderedQueryable<PetHaveDiagnosis>> order;
+                    // Order
+                    switch (history.SortField)
+                    {
+                        case "PetName":
+                            if (history.SortOrder == -1)
+                                order = o => o.OrderByDescending(x => x.Pet.PetName);
+                            else
+                                order = o => o.OrderBy(x => x.Pet.PetName);
+                            break;
+                        case "CustomerName":
+                            if (history.SortOrder == -1)
+                                order = o => o.OrderByDescending(x => x.Pet.Customer.FirstName);
+                            else
+                                order = o => o.OrderBy(x => x.Pet.Customer.FirstName);
+                            break;
+                        case "DiagnosisDate":
+                            if (history.SortOrder == -1)
+                                order = o => o.OrderByDescending(x => x.DiagnosisDate);
+                            else
+                                order = o => o.OrderBy(x => x.DiagnosisDate);
+                            break;
+                        case "Description":
+                            if (history.SortOrder == -1)
+                                order = o => o.OrderByDescending(x => x.Description);
+                            else
+                                order = o => o.OrderBy(x => x.Description);
+                            break;
+                        case "Remark":
+                            if (history.SortOrder == -1)
+                                order = o => o.OrderByDescending(x => x.Remark);
+                            else
+                                order = o => o.OrderBy(x => x.Remark);
+                            break;
+                        default:
+                            order = o => o.OrderBy(x => x.DiagnosisDate);
+                            break;
+                    }
+                    // Total Row
+                    var TotalRow = await this.repository.GetLengthWithAsync(predicate: predicate);
+                    // Get Data
+                    var HasData = await this.repository.GetToListAsync(
+                                    selector:x => x,
+                                    predicate:predicate,
+                                    orderBy: order,
+                                    include:x => x.Include(z => z.Pet.Customer).Include(z => z.Pet.Breed),
+                                    skip:history.Skip,
+                                    take:history.Take);
+
+                    var MapData = new List<PetHaveDiagnosisViewModel>();
+                    foreach (var item in HasData)
+                        MapData.Add(this.mapper.Map<PetHaveDiagnosis, PetHaveDiagnosisViewModel>(item));
+
+                    return new JsonResult(new
+                    {
+                        TotalRow,
+                        Data = MapData
+                    }, this.DefaultJsonSettings);
+                }
+            }
+            catch(Exception ex)
+            {
+                Message = $"Has error {ex.ToString()}";
+            }
+
+            return BadRequest(new { error = Message });
+        }
     }
 }
 

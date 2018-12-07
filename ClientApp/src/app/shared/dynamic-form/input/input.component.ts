@@ -25,6 +25,21 @@ import { FieldConfig } from "../field-config.model";
       margin:5px;
     }
   }
+
+  @media(max-width: 600px)
+  {
+    .app-input {
+      width:100%;
+      margin: 5px;
+
+      mat-form-field {
+        width: 90%;
+        min-height:50px;
+        margin:5px;
+      }
+    }
+  }
+
 `]
 })
 export class InputComponent implements OnInit {

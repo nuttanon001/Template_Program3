@@ -1,0 +1,80 @@
+<div *ngIf="historyForm">
+  <form [formGroup]="historyForm" class="header">
+    <div>
+      <i class="fa fa-object-group" aria-hidden="true"></i>
+      <mat-form-field>
+        <input matInput formControlName="CustomerName"
+               type="text" readonly class="click-input"
+               placeholder="คลิกเลือกลูกค้า"
+               (click)="openDialog('CustomerName')">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <i class="fa fa-object-group" aria-hidden="true"></i>
+      <mat-form-field>
+        <input matInput formControlName="PetName"
+               type="text" readonly class="click-input"
+               placeholder="คลิกเลือกสัตว์เลี้ยง"
+               (click)="openDialog('PetName')">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <i class="fa fa-date" aria-hidden="true"></i>
+      <mat-form-field>
+        <input matInput [matDatepicker]="SDate" formControlName="SDate"
+               [max]="historyForm.controls.EDate.value"
+               placeholder="เลือกวันที่เริ่มค้นหา">
+        <mat-datepicker-toggle matSuffix [for]="SDate"></mat-datepicker-toggle>
+        <mat-datepicker #SDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <i class="fa fa-date" aria-hidden="true"></i>
+      <mat-form-field>
+        <input matInput [matDatepicker]="EDate" formControlName="EDate"
+               [min]="historyForm.controls.SDate.value"
+               placeholder="เลือกวันที่สิ้นสุดการค้นหา">
+        <mat-datepicker-toggle matSuffix [for]="EDate"></mat-datepicker-toggle>
+        <mat-datepicker #EDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <button mat-mini-fab color="warn" (click)="resetFilter()"
+              matTooltipPosition="left" matTooltip="Reset all filter">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>
+<div class="detail">
+  <p-virtualScroller [value]="datasource" [scrollHeight]="mobHeight" [itemSize]="10"
+                     [rows]="50" [cache]="false" [first]="first" [totalRecords]="totalRow"
+                     [lazy]="true" (onLazyLoad)="loadLazy($event)">
+    <p-header>
+      ประวัติการเข้ารับการรักษา
+    </p-header>
+    <ng-template let-row pTemplate="item" let-i="index">
+      <div class="line-time" style="cursor:pointer" (click)="onShowPetHaveDiagnose(row)">
+        <span class="title-item">{{i + 1}}.</span>
+        <ng-container *ngFor="let column of columns">
+          <span class="title-item">{{column.columnName}}:</span>
+          <i>{{ column.cell(row) }}</i>
+        </ng-container>
+      </div>
+    </ng-template>
+    <!--<ng-template let-row pTemplate="loadingItem">
+      <div class="line-time">
+        <span class="title-item empty-item-text">{{i}}</span>|
+        <ng-container *ngFor="let column of columns">
+          <span class="title-item empty-item-text">{{column.columnName}}:</span>
+          <div class="empty-item-text"></div>
+        </ng-container>
+      </div>
+    </ng-template>-->
+  </p-virtualScroller>
+</div>
+

@@ -5,7 +5,7 @@ import { FieldConfig } from "../field-config.model";
 @Component({
   selector: "app-radiobutton",
   template: `
-  <div [formGroup]="group" class="app-radiobutton">
+  <div [formGroup]="group" class="app-radiobutton" [ngClass]="{'show-vertival': field.vertival }">
   <label class="radio-label-padding">{{field.label}}:</label>
   <mat-radio-group [formControlName]="field.name">
     <mat-radio-button *ngFor="let item of field.options" [value]="item.value" style="margin-left:5px;">
@@ -20,12 +20,21 @@ import { FieldConfig } from "../field-config.model";
     margin: 5px;
     display: flex;
     align-content: center;
-    align-items: center;x
+    align-items: center;
+    flex-wrap: wrap;
+    flex-flow: row;
   }
+
   .radio-label-padding {
     padding-right: 10px;
     color: grey;
   }
+
+  .show-vertival
+  {
+    flex-flow: column;
+  }
+
 `]
 })
 export class RadiobuttonComponent implements OnInit {

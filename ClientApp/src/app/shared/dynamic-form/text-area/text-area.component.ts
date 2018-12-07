@@ -26,6 +26,21 @@ import { FormGroup } from '@angular/forms';
       margin:5px;
     }
   }
+
+  @media(max-width: 600px)
+  {
+    .app-text-area
+    {
+      margin: 5px;
+      width:100%;
+
+      mat-form-field {
+        width: 90%;
+        min-height:50px;
+        margin:5px;
+      }
+    }
+  }
 `]
 })
 export class TextAreaComponent implements OnInit {

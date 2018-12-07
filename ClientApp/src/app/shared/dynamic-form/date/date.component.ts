@@ -20,7 +20,8 @@ import { FieldConfig } from "../field-config.model";
   </mat-form-field>
 `,
   styles: [`
- .app-date {
+  .app-date
+  {
     width: 45%;
     margin: 5px;
 
@@ -28,6 +29,21 @@ import { FieldConfig } from "../field-config.model";
       width: 90%;
       min-height:50px;
       margin:5px;
+    }
+  }
+
+  @media(max-width: 600px)
+  {
+    .app-date
+    {
+      margin: 5px;
+      width:100%;
+
+      mat-form-field {
+        width: 90%;
+        min-height:50px;
+        margin:5px;
+      }
     }
   }
 `]

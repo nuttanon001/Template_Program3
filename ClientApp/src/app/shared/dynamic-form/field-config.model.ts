@@ -22,6 +22,7 @@ export interface FieldConfig {
   group?: string;
   readonly?: boolean;
   continue?: boolean;
+  vertival?: boolean;
   validations?: Validator[];
 }
 

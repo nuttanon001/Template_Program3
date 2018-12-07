@@ -17,10 +17,11 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 // primeng
 import {
-  DataTableModule,
   SharedModule,
 } from "primeng/primeng";
 import { TableModule } from 'primeng/table';
+// 3rd Party
+import { VirtualScrollerModule } from 'primeng/virtualscroller';
 // component
 import { SearchBoxComponent } from "./search-box/search-box.component";
 //import { AttachFileComponent } from './attach-file/attach-file.component';
@@ -77,6 +78,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
     //DataTableModule,
     SharedModule,
     TableModule,
+    VirtualScrollerModule
   ],
   exports: [
     // material
@@ -119,6 +121,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
     //DataTableModule,
     SharedModule,
     TableModule,
+    VirtualScrollerModule
   ],
   entryComponents: [
     SearchBoxComponent,

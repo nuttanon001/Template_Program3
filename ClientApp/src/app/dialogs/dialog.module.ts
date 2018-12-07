@@ -23,6 +23,10 @@ import { MedicineInfoDialogComponent } from './medicine-dialog/medicine-info-dia
 import { MedicineTableDialogComponent } from './medicine-dialog/medicine-table-dialog/medicine-table-dialog.component';
 import { AppointmentDialogComponent } from './appointment-dialog/appointment-dialog.component';
 import { AppointmentInfoDialogComponent } from './appointment-dialog/appointment-info-dialog/appointment-info-dialog.component';
+import { CustomerDialogComponent } from './customer-dialog/customer-dialog.component';
+import { CustomerTableDialogComponent } from './customer-dialog/customer-table-dialog/customer-table-dialog.component';
+import { PetHaveDiagnoseDialogComponent } from './pet-have-diagnose-dialog/pet-have-diagnose-dialog.component';
+import { PetHaveDiagnoseInfoDialogComponent } from './pet-have-diagnose-dialog/pet-have-diagnose-info-dialog/pet-have-diagnose-info-dialog.component';
 
 @NgModule({
   imports: [
@@ -49,6 +53,10 @@ import { AppointmentInfoDialogComponent } from './appointment-dialog/appointment
     MedicineTableDialogComponent,
     AppointmentDialogComponent,
     AppointmentInfoDialogComponent,
+    CustomerDialogComponent,
+    CustomerTableDialogComponent,
+    PetHaveDiagnoseDialogComponent,
+    PetHaveDiagnoseInfoDialogComponent,
   ],
   providers: [
     DialogsService,
@@ -70,6 +78,10 @@ import { AppointmentInfoDialogComponent } from './appointment-dialog/appointment
     MedicineTableDialogComponent,
     AppointmentDialogComponent,
     AppointmentInfoDialogComponent,
+    CustomerDialogComponent,
+    CustomerTableDialogComponent,
+    PetHaveDiagnoseDialogComponent,
+    PetHaveDiagnoseInfoDialogComponent,
   ],
 })
 export class DialogsModule { }

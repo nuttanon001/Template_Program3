@@ -18,6 +18,10 @@ import { Medicine } from "src/app/medicines/shared/medicine.model";
 import { MedicineDialogComponent } from "../medicine-dialog/medicine-dialog.component";
 import { Appointment } from "src/app/appointments/shared/appointment.model";
 import { AppointmentDialogComponent } from "../appointment-dialog/appointment-dialog.component";
+import { Customer } from "src/app/customers/shared/customer.model";
+import { CustomerDialogComponent } from "../customer-dialog/customer-dialog.component";
+import { PetHaveDiagnose } from "src/app/pet-have-diagnoses/shared/pet-have-diagnose.model";
+import { PetHaveDiagnoseDialogComponent } from "../pet-have-diagnose-dialog/pet-have-diagnose-dialog.component";
 
 @Injectable({
   providedIn:"root"
@@ -143,10 +147,27 @@ export class DialogsService {
   }
 
   /**
-* 
-* @param viewContainerRef
-* @param data = info: Appointment 
-*/
+  * @param viewContainerRef
+  * @param data = info: Medicine
+  */
+  public dialogCustomerTable(viewContainerRef: ViewContainerRef, data: DialogInfo<Customer>): Observable<Customer | Array<Customer>> {
+    let dialogRef: MatDialogRef<CustomerDialogComponent>;
+    let config: MatDialogConfig = new MatDialogConfig();
+
+    // config
+    config.viewContainerRef = viewContainerRef;
+    config.data = data;
+    config.hasBackdrop = true;
+
+    // open dialog
+    dialogRef = this.dialog.open(CustomerDialogComponent, config);
+    return dialogRef.afterClosed();
+  }
+
+  /**
+  * @param viewContainerRef
+  * @param data = info: Appointment 
+  */
   public dialogAppointmentInfo(viewContainerRef: ViewContainerRef, data: DialogInfo<Appointment>): Observable<Appointment> {
     let dialogRef: MatDialogRef<AppointmentDialogComponent>;
     let config: MatDialogConfig = new MatDialogConfig();
@@ -158,6 +179,24 @@ export class DialogsService {
 
     // open dialog
     dialogRef = this.dialog.open(AppointmentDialogComponent, config);
+    return dialogRef.afterClosed();
+  }
+
+  /**
+ * @param viewContainerRef
+ * @param data = info: Appointment 
+ */
+  public dialogPetHaveDiagnosesInfo(viewContainerRef: ViewContainerRef, data: DialogInfo<PetHaveDiagnose>): Observable<PetHaveDiagnose> {
+    let dialogRef: MatDialogRef<PetHaveDiagnoseDialogComponent>;
+    let config: MatDialogConfig = new MatDialogConfig();
+
+    // config
+    config.viewContainerRef = viewContainerRef;
+    config.data = data;
+    config.hasBackdrop = true;
+
+    // open dialog
+    dialogRef = this.dialog.open(PetHaveDiagnoseDialogComponent, config);
     return dialogRef.afterClosed();
   }
 

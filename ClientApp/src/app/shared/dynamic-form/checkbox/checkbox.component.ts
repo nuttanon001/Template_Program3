@@ -5,17 +5,25 @@ import { FieldConfig } from "../field-config.model";
 @Component({
   selector: "app-checkbox",
   template: `
-  <div class="app-checkbox" [formGroup]="group">
+  <div class="app-checkbox" [formGroup]="group" [ngClass]="{'show-vertival': field.vertival }">
     <mat-checkbox [formControlName]="field.name">
       {{field.label}}
     </mat-checkbox>
   </div>
 `,
   styles: [`
- .app-checkbox {
-    width: 25%;
-    margin: 5px;
-  }
+  .app-checkbox
+    {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: left;
+      flex-flow: row;
+      margin: 5px;
+    }
+  .show-vertival
+    {
+      flex-flow: column;
+    }
 `]
 })
 export class CheckboxComponent implements OnInit {
