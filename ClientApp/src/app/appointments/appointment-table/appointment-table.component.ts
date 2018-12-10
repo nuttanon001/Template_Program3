@@ -16,6 +16,7 @@ export class AppointmentTableComponent
     super(service);
 
     this.columns = [
+      { columnName: "วันที่สร้าง", columnField: "CreateDate", cell: (row: Appointment) => moment(row.CreateDate).format("DD-MM-YYYY") },
       { columnName: "นัดหมาย", columnField: "AppointmentDate", cell: (row: Appointment) => moment(row.AppointmentDate).format("DD-MM-YYYY เวลา HH:mm") },
       { columnName: "สัตว์เลี้ยง", columnField: "PetName", cell: (row: Appointment) => row.PetName },
       { columnName: "ชื่อเจ้าของ", columnField: "CustomerName", cell: (row: Appointment) => row.CustomerName },

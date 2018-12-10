@@ -146,7 +146,7 @@ export class PetHaveDiagnoseInfoComponent
       // BasemodelRequireWorkpermit //
       {
         type: typeField.inputclick,
-        label: "เจ้าขอสัตว์เลี้ยง",
+        label: "เจ้าของสัตว์เลี้ยง",
         inputType: inputType.text,
         name: "CustomerName",
         disabled: this.denySave,
@@ -206,6 +206,21 @@ export class PetHaveDiagnoseInfoComponent
         name: "Weight",
         disabled: this.denySave,
         value: this.InfoValue.Weight,
+        validations: [
+          {
+            name: ValidatorField.required,
+            validator: Validators.required,
+            message: "ข้อมูลจำเป็นต้องระบุ"
+          }
+        ]
+      }, 
+       {
+        type: typeField.input,
+        label: "อุณหภูมิ",
+        inputType: inputType.number,
+        name: "Temperature",
+        disabled: this.denySave,
+        value: this.InfoValue.Temperature,
         validations: [
           {
             name: ValidatorField.required,

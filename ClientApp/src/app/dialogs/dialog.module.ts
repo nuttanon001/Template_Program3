@@ -27,6 +27,8 @@ import { CustomerDialogComponent } from './customer-dialog/customer-dialog.compo
 import { CustomerTableDialogComponent } from './customer-dialog/customer-table-dialog/customer-table-dialog.component';
 import { PetHaveDiagnoseDialogComponent } from './pet-have-diagnose-dialog/pet-have-diagnose-dialog.component';
 import { PetHaveDiagnoseInfoDialogComponent } from './pet-have-diagnose-dialog/pet-have-diagnose-info-dialog/pet-have-diagnose-info-dialog.component';
+import { DiagnosesTableExtendComponent } from './pet-have-diagnose-dialog/diagnoses-table-extend/diagnoses-table-extend.component';
+import { TreatmentTableExtendComponent } from './pet-have-diagnose-dialog/treatment-table-extend/treatment-table-extend.component';
 
 @NgModule({
   imports: [
@@ -57,6 +59,8 @@ import { PetHaveDiagnoseInfoDialogComponent } from './pet-have-diagnose-dialog/p
     CustomerTableDialogComponent,
     PetHaveDiagnoseDialogComponent,
     PetHaveDiagnoseInfoDialogComponent,
+    DiagnosesTableExtendComponent,
+    TreatmentTableExtendComponent,
   ],
   providers: [
     DialogsService,

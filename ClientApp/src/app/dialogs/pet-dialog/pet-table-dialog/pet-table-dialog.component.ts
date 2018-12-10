@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseTableComponent } from 'src/app/shared/baseclases/base-table.component';
-import { Pet } from 'src/app/pets/shared/pet.model';
+import { Pet, PetSex } from 'src/app/pets/shared/pet.model';
 import { PetService } from 'src/app/pets/shared/pet.service';
 import * as moment from "moment";
 
@@ -16,7 +16,7 @@ export class PetTableDialogComponent extends BaseTableComponent<Pet, PetService>
 
     this.columns = [
       { columnName: "PetName.", columnField: "PetName", cell: (row: Pet) => row.PetName },
-      { columnName: "Sex.", columnField: "Sex", cell: (row: Pet) => row.Sex.toString() },
+      { columnName: "Sex.", columnField: "Sex", cell: (row: Pet) =>  PetSex[row.Sex] },
       { columnName: "Age.", columnField: "Age", cell: (row: Pet) => row.Age },
       { columnName: "BreedName.", columnField: "BreedName", cell: (row: Pet) => row.BreedName },
       { columnName: "CustomerName.", columnField: "CustomerName", cell: (row: Pet) => row.CustomerName },

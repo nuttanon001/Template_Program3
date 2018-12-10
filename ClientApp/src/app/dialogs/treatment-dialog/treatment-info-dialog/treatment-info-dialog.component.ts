@@ -72,7 +72,7 @@ export class TreatmentInfoDialogComponent extends BaseInfoDialogComponent<Treatm
       },
       {
         type: typeField.input,
-        label: "ปริมาณต่อครั้ง",
+        label: "ปริมาณยาต่อครั้ง",
         inputType: inputType.number,
         name: "Volumes",
         disabled: this.denySave,

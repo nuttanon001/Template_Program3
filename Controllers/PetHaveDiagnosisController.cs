@@ -67,7 +67,9 @@ namespace Template_Program.Controllers
                     string keyword = temp;
                     predicate = predicate.Or(x => x.Description.ToLower().Contains(keyword) ||
                                                   x.Remark.ToLower().Contains(keyword) ||
-                                                  x.Pet.PetName.ToLower().Contains(keyword));
+                                                  x.Pet.PetName.ToLower().Contains(keyword) ||
+                                                  x.Pet.Customer.FirstName.ToLower().Contains(keyword) ||
+                                                  x.Pet.Customer.LastName.ToLower().Contains(keyword));
                 }
 
                 if (Scroll.WhereId.HasValue)
@@ -78,6 +80,18 @@ namespace Template_Program.Controllers
                 // Order
                 switch (Scroll.SortField)
                 {
+                    case "CustomerName":
+                        if (Scroll.SortOrder == -1)
+                            order = o => o.OrderByDescending(x => x.Pet.Customer.FirstName);
+                        else
+                            order = o => o.OrderBy(x => x.Pet.Customer.FirstName);
+                        break;
+                    case "PetName":
+                        if (Scroll.SortOrder == -1)
+                            order = o => o.OrderByDescending(x => x.Pet.PetName);
+                        else
+                            order = o => o.OrderBy(x => x.Pet.PetName);
+                        break;
                     case "DiagnosisDate":
                         if (Scroll.SortOrder == -1)
                             order = o => o.OrderByDescending(x => x.DiagnosisDate);
@@ -97,7 +111,7 @@ namespace Template_Program.Controllers
                             order = o => o.OrderBy(x => x.Remark);
                         break;
                     default:
-                        order = o => o.OrderBy(x => x.DiagnosisDate);
+                        order = o => o.OrderByDescending(x => x.DiagnosisDate);
                         break;
                 }
 

@@ -58,7 +58,7 @@
       ประวัติการเข้ารับการรักษา
     </p-header>
     <ng-template let-row pTemplate="item" let-i="index">
-      <div class="line-time" style="cursor:pointer" (click)="onShowPetHaveDiagnose(row)">
+      <div class="row line-time" style="cursor:pointer" (click)="onShowPetHaveDiagnose(row)">
         <span class="title-item">{{i + 1}}.</span>
         <ng-container *ngFor="let column of columns">
           <span class="title-item">{{column.columnName}}:</span>

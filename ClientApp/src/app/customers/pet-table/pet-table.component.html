@@ -58,6 +58,10 @@
                   [disabled]="readOnly" matTooltip="Diagnose">
             <mat-icon>local_hospital</mat-icon>
           </button>
+          <button mat-icon-button color="primary" (click)="onActionClick(row,4)"
+                  [disabled]="readOnly" matTooltip="Appointment">
+            <mat-icon>date_range</mat-icon>
+          </button>
           <button mat-icon-button color="warn" (click)="onActionClick(row,0)"
                   [disabled]="readOnly" matTooltip="Remove">
             <mat-icon>clear</mat-icon>

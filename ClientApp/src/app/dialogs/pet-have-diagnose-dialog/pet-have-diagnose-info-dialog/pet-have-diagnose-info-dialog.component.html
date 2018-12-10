@@ -13,15 +13,15 @@
       <ng-template matStepLabel>
         <strong><b>Diagnose(s) list Information</b></strong>
       </ng-template>
-      <app-diagnoses-table [dataRows]="InfoValue.Diagnoses" [readOnly]="denySave">
-      </app-diagnoses-table>
+      <app-diagnoses-table-extend [dataRows]="InfoValue.Diagnoses" [readOnly]="denySave">
+      </app-diagnoses-table-extend>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>
         <strong><b>Treatment(s) list Information</b></strong>
       </ng-template>
-      <app-treatment-table [dataRows]="InfoValue.Treatments" [readOnly]="denySave">
-      </app-treatment-table>
+      <app-treatment-table-extend [dataRows]="InfoValue.Treatments" [readOnly]="denySave">
+      </app-treatment-table-extend>
     </mat-step>
   </mat-horizontal-stepper>
 </div>

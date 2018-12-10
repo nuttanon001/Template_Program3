@@ -9,6 +9,7 @@ import { Validators } from '@angular/forms';
 import { Pet } from 'src/app/pets/shared/pet.model';
 import { ShareService } from 'src/app/shared/share.service';
 import { CustomerService } from 'src/app/customers/shared/customer.service';
+import { PetService } from 'src/app/pets/shared/pet.service';
 
 @Component({
   selector: 'app-appointment-info',
@@ -22,13 +23,15 @@ export class AppointmentInfoComponent
   constructor(
     service: AppointmentService,
     serviceCom: AppointmentCommunicateService,
-    private serviceCustomer:CustomerService,
+    private serviceCustomer: CustomerService,
+    private servicePet: PetService,
     private serviceShared: ShareService,
     private serviceDialogs: DialogsService,
     private viewCon: ViewContainerRef,
   ) { super(service, serviceCom) }
 
   // Parameters
+  CustomerId: number = 0;
   regConfig: Array<FieldConfig>;
 
   // Methods
@@ -44,8 +47,52 @@ export class AppointmentInfoComponent
       this.InfoValue = {
         AppointmentId: 0,
         AppointmentDate: new Date,
-        AppointmentStatus: AppointmentStatus.Wait
+        AppointmentStatus: AppointmentStatus.Wait,
+        Communicate: ""
       };
+
+      if (InfoValue) {
+        if (InfoValue.PetId) {
+          this.InfoValue.PetId = InfoValue.PetId;
+        }
+      }
+
+      if (this.InfoValue.PetId) {
+        this.servicePet.getOneKeyNumber({ PetId: this.InfoValue.PetId })
+          .subscribe(dbPet => {
+            if (this.regConfig) {
+              // debug here
+              let temp = ["PetName", "CustomerName"]
+              temp.forEach(item => {
+                this.serviceShared.toChild(
+                  {
+                    name: item,
+                    value: dbPet[item]
+                  });
+              });
+
+              this.CustomerId = dbPet.CustomerId;
+
+            } else {
+              this.InfoValue.CustomerName = dbPet.CustomerName || "";
+              this.InfoValue.PetName = dbPet.PetName || "";
+            }
+          }, () => { }, () => {
+            if (this.CustomerId) {
+              this.serviceCustomer.getOneKeyNumber({ CustomerId: this.CustomerId })
+                .subscribe(dbCustomer => {
+                  if (dbCustomer) {
+                    let communicate1 = `Tel:${dbCustomer.PhoneNo} | อื่นๆ:${dbCustomer.MailAddress}`;
+                    this.serviceShared.toChild({
+                      name: "Communicate",
+                      value: communicate1
+                    });
+                  }
+                });
+            }
+          });
+      }
+
       this.buildForm();
     }
   }
@@ -68,7 +115,7 @@ export class AppointmentInfoComponent
       },
       {
         type: typeField.inputclick,
-        label: "เจ้าขอสัตว์เลี้ยง",
+        label: "เจ้าของสัตว์เลี้ยง",
         inputType: inputType.text,
         name: "CustomerName",
         disabled: this.denySave,
@@ -99,10 +146,11 @@ export class AppointmentInfoComponent
         ]
       },
       {
-        type: typeField.textarea,
+        type: typeField.inputclick,
         label: "ข้อมูลติดต่อ",
+        inputType: inputType.text,
         name: "Communicate",
-        disabled: this.denySave,
+        disabled: true,
         value: this.InfoValue.Communicate,
         readonly: true,
       },

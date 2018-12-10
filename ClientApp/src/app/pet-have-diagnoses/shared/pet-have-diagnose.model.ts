@@ -15,6 +15,7 @@ export interface PetHaveDiagnose extends BaseModel {
   LungSound?: boolean;
   Hydration?: boolean;
   StatusPetHasDiagonsis?: StatusPetHasDiagonsis;
+  Temperature?: number;
   // Relation
   PetId?: number;
   Diagnoses?: Array<Diagnoses>;
@@ -37,7 +38,7 @@ export enum MucousMembrane {
 export enum StatusPetHasDiagonsis {
   Diagnosis = 1,
   Treatment,
-  Complate,
+  Complete,
   Cancel,
   Pause
 }

@@ -110,6 +110,12 @@ namespace Template_Program.Controllers
                         else
                             order = o => o.OrderBy(x => x.AppointmentDate);
                         break;
+                    case "CreateDate":
+                        if (Scroll.SortOrder == -1)
+                            order = o => o.OrderByDescending(x => x.CreateDate);
+                        else
+                            order = o => o.OrderBy(x => x.CreateDate);
+                        break;
                     case "Description":
                         if (Scroll.SortOrder == -1)
                             order = o => o.OrderByDescending(x => x.Description);
@@ -117,7 +123,7 @@ namespace Template_Program.Controllers
                             order = o => o.OrderBy(x => x.Description);
                         break;
                     default:
-                        order = o => o.OrderBy(x => x.AppointmentDate);
+                        order = o => o.OrderByDescending(x => x.CreateDate);
                         break;
                 }
 

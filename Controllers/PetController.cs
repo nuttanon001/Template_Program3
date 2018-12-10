@@ -84,7 +84,8 @@ namespace Template_Program.Controllers
                     string keyword = temp;
                     predicate = predicate.Or(x => x.Breed.Name.ToLower().Contains(keyword) ||
                                                   x.PetName.ToLower().Contains(keyword) ||
-                                                  x.Remark.ToLower().Contains(keyword));
+                                                  x.Remark.ToLower().Contains(keyword) ||
+                                                  x.Customer.FirstName.ToLower().Contains(keyword));
                 }
                 // Order by
                 Func<IQueryable<Pet>, IOrderedQueryable<Pet>> order;
@@ -96,6 +97,12 @@ namespace Template_Program.Controllers
                             order = o => o.OrderByDescending(x => x.PetName);
                         else
                             order = o => o.OrderBy(x => x.PetName);
+                        break;
+                    case "CustomerName":
+                        if (Scroll.SortOrder == -1)
+                            order = o => o.OrderByDescending(x => x.Customer.FirstName);
+                        else
+                            order = o => o.OrderBy(x => x.Customer.FirstName);
                         break;
                     case "Breed":
                         if (Scroll.SortOrder == -1)

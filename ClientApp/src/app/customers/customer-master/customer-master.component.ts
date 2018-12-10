@@ -30,4 +30,14 @@ export class CustomerMasterComponent
   onReloadData(): void {
     this.tableComponent.reloadData();
   }
+
+  // on save complete
+  onSaveComplete(): void {
+    this.dialogsService.context("System message", "Save completed.", this.viewContainerRef)
+      .subscribe(result => {
+        this.ShowDetail = false;
+        // this.displayValue = undefined;
+        this.onDetailView({ data: this.displayValue, option: 1 });
+      });
+  }
 }

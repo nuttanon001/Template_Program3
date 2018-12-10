@@ -158,15 +158,8 @@ export class CustomerInfoComponent
         type: typeField.date,
         label: "เกิดวันที่",
         name: "BirthDate",
-        disabled: this.denySave,
+        disabled: true,
         value: this.InfoValue.BirthDate,
-        validations: [
-          {
-            name: ValidatorField.required,
-            validator: Validators.required,
-            message: "ข้อมูลจำเป็นต้องระบุ"
-          }
-        ]
       },
       {
         type: typeField.date,
@@ -381,6 +374,20 @@ export class CustomerInfoComponent
             .subscribe(result => {
               if (result) {
                 this.router.navigate(["diagnose/", Item.data.PetId]);
+              }
+            });
+        } else {
+          this.serviceDialogs.context("แจ้งเตือน", "โปรดดำเนินการบันทึกข้อมูลสัตว์เลี้ยงก่อนดำเนินตรวจรักษา !!!", this.viewCon)
+            .subscribe();
+        }
+      }
+      else if (Item.option === 4) // To pet have diagnose
+      {
+        if (Item.data.PetId) {
+          this.serviceDialogs.confirm("แจ้งเตือน", "คุณต้องการดำเนินการตรวจรักษาใช่หรือไม่ ? (ข้อมูลที่ยังไม่ได้รับการบันทึกจะหายทั้งหมด !!!)", this.viewCon)
+            .subscribe(result => {
+              if (result) {
+                this.router.navigate(["appointment/", Item.data.PetId]);
               }
             });
         } else {

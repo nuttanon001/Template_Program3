@@ -17,7 +17,7 @@ export class CustomerTableComponent
 
     this.columns = [
       { columnName: "ชื่อ", columnField: "FullName", cell: (row: Customer) => row.FullName },
-      { columnName: "อายุ", columnField: "Age", cell: (row: Customer) => row.Age },
+      //{ columnName: "อายุ", columnField: "Age", cell: (row: Customer) => row.Age },
       { columnName: "เบอร์", columnField: "PhoneNo", cell: (row: Customer) => row.PhoneNo },
       { columnName: "วันที่ลงทะเบียน", columnField: "RegisterDate", cell: (row: Customer) => moment(row.RegisterDate).format("DD-MM-YYYY") },
       { columnName: "เพศ", columnField: "Sex",cell: (row: Customer) => Sex[row.Sex] },

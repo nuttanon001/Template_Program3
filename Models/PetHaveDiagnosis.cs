@@ -22,6 +22,7 @@ namespace Template_Program.Models
         public bool? HeartSound { get; set; }
         public bool? LungSound { get; set; }
         public bool? Hydration { get; set; }
+        public double? Temperature { get; set; }
         public StatusPetHasDiagonsis? StatusPetHasDiagonsis { get; set; }
         //Relation
         public int? PetId { get; set; }

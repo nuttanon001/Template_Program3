@@ -75,9 +75,15 @@ namespace Template_Program.Controllers
                         else
                             order = o => o.OrderBy(x => x.Address);
                         break;
+                    case "RegisterDate":
+                        if (Scroll.SortOrder == -1)
+                            order = o => o.OrderByDescending(x => x.RegisterDate);
+                        else
+                            order = o => o.OrderBy(x => x.RegisterDate);
+                        break;
 
                     default:
-                        order = o => o.OrderBy(x => x.FirstName).ThenBy(e => e.LastName);
+                        order = o => o.OrderByDescending(x => x.RegisterDate);
                         break;
                 }
 

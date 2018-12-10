@@ -55,4 +55,16 @@ export class PetHaveDiagnoseMasterComponent
       }
     }, error => console.error(error));
   }
+
+  // on save complete
+  onSaveComplete(): void {
+    this.dialogsService.context("System message", "Save completed.", this.viewContainerRef)
+      .subscribe(result => {
+        this.ShowDetail = false;
+        this.displayValue = undefined;
+        if (this.backToSchedule) {
+          this.location.back();
+        }
+      });
+  }
 }
