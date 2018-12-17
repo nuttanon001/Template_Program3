@@ -20,7 +20,8 @@ export class CustomerTableComponent
       //{ columnName: "อายุ", columnField: "Age", cell: (row: Customer) => row.Age },
       { columnName: "เบอร์", columnField: "PhoneNo", cell: (row: Customer) => row.PhoneNo },
       { columnName: "วันที่ลงทะเบียน", columnField: "RegisterDate", cell: (row: Customer) => moment(row.RegisterDate).format("DD-MM-YYYY") },
-      { columnName: "เพศ", columnField: "Sex",cell: (row: Customer) => Sex[row.Sex] },
+      { columnName: "เพศ", columnField: "Sex", cell: (row: Customer) => Sex[row.Sex] },
+      { columnName: "สัวต์เลี้ยง", columnField: "ListPets", cell: (row: Customer) => row.ListPets },
     ];
     this.displayedColumns = this.columns.map(x => x.columnField);
     //this.displayedColumns.splice(0, 0, "select");

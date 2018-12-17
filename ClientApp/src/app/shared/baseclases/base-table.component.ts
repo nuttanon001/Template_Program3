@@ -65,11 +65,14 @@ export class BaseTableComponent<Model, Service extends BaseRestService<Model>> i
       this.searchBox.setInput = this.OptionFilter;
       this.searchBox.search2 = this.OptionFilter;
     }
-    
+
     merge(this.sort.sortChange, this.paginator.page, this.searchBox.search)
       .pipe(
         startWith({}),
         switchMap(() => {
+          //debuf here
+          console.log("search2", this.searchBox.search2);
+
           this.isLoadingResults = true;
           let scroll: Scroll = {
             Skip: this.paginator.pageIndex * this.paginator.pageSize,

@@ -35,6 +35,7 @@ export class PetHaveDiagnoseHistoryComponent implements OnInit {
   datasource: Array<PetHaveDiagnose>;
   mobHeight: any;
   columns: Array<ResueaColumn<PetHaveDiagnose>>;
+  loading: boolean;
 
   ngOnInit() {
     if (!this.history) {
@@ -49,15 +50,15 @@ export class PetHaveDiagnoseHistoryComponent implements OnInit {
       { columnName: "สัตว์เลี้ยง", columnField: "PetName", cell: (row: PetHaveDiagnose) => row.PetName },
       { columnName: "ชนิด", columnField: "BreedName", cell: (row: PetHaveDiagnose) => row.BreedName },
       { columnName: "อาการ", columnField: "Description", cell: (row: PetHaveDiagnose) => row.Description },
-      { columnName: "หมายเหตุ", columnField: "Remark", cell: (row: PetHaveDiagnose) => row.Remark },
-      { columnName: "วันที่", columnField: "DiagnosisDate", cell: (row: PetHaveDiagnose) => moment(row.DiagnosisDate).format("DD-MM-YYYY") },
+      //{ columnName: "หมายเหตุ", columnField: "Remark", cell: (row: PetHaveDiagnose) => row.Remark },
+      { columnName: "วันที่", columnField: "DiagnosisDate", cell: (row: PetHaveDiagnose) => moment(row.DiagnosisDate).format("DD-MM-YYYY"),width :105},
       { columnName: "น้ำหนัก", columnField: "Weight", cell: (row: PetHaveDiagnose) => row.Weight },
       { columnName: "หายใจ", columnField: "BreathingRate", cell: (row: PetHaveDiagnose) => row.BreathingRate },
-      { columnName: "สีเหงือก", columnField: "MucousMembrane", cell: (row: PetHaveDiagnose) => MucousMembrane[row.MucousMembrane] },
+      { columnName: "สีเหงือก", columnField: "MucousMembrane", cell: (row: PetHaveDiagnose) => MucousMembrane[row.MucousMembrane],width: 175 },
       { columnName: "เสียงหัวใจ", columnField: "HeartSound", cell: (row: PetHaveDiagnose) => row.HeartSound ? "ปกติ" : "ไม่ปกติ"},
       { columnName: "เสียงปอด", columnField: "LungSound", cell: (row: PetHaveDiagnose) => row.LungSound ? "ปกติ" : "ไม่ปกติ" },
       { columnName: "ระดับน้ำ", columnField: "Hydration", cell: (row: PetHaveDiagnose) => row.Hydration ? "ปกติ" : "ไม่ปกติ" },
-      { columnName: "สถานะ", columnField: "StatusPetHasDiagonsis", cell: (row: PetHaveDiagnose) => StatusPetHasDiagonsis[row.StatusPetHasDiagonsis] },
+      { columnName: "สถานะ", columnField: "StatusPetHasDiagonsis", cell: (row: PetHaveDiagnose) => StatusPetHasDiagonsis[row.StatusPetHasDiagonsis], width: 105 },
     ];
 
     this.buildForm();
@@ -96,6 +97,7 @@ export class PetHaveDiagnoseHistoryComponent implements OnInit {
 
   // on get data
   onGetData(history: History): void {
+    this.loading = true;
     this.service.getHistoryDiagnose(history)
       .subscribe(dbData => {
         if (dbData && dbData.TotalRow) {
@@ -110,6 +112,7 @@ export class PetHaveDiagnoseHistoryComponent implements OnInit {
           this.first = 0;
           this.datasource = new Array;
         }
+        this.loading = false;
       });
   }
 

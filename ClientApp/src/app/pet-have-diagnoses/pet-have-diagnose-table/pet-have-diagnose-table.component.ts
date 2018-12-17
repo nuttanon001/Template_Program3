@@ -13,19 +13,23 @@ import { of as observableOf, merge, Observable } from 'rxjs';
 import { Scroll } from 'src/app/shared/basemode/scroll.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DialogsService } from 'src/app/dialogs/shared/dialogs.service';
+import { DialogService } from 'primeng/primeng';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { PetDialogComponent } from 'src/app/dialogs/pet-dialog/pet-dialog.component';
 
 @Component({
   selector: 'app-pet-have-diagnose-table',
   templateUrl: './pet-have-diagnose-table.component.html',
-  styleUrls: ['./pet-have-diagnose-table.component.scss']
+  styleUrls: ['./pet-have-diagnose-table.component.scss'],
+  providers: [DialogService, PetHaveDiagnoseService]
 })
 export class PetHaveDiagnoseTableComponent
   extends BaseTableComponent<PetHaveDiagnose, PetHaveDiagnoseService> {
-
   constructor(
     service: PetHaveDiagnoseService,
     private serviceDialogs: DialogsService,
-    private viewCon: ViewContainerRef
+    private viewCon: ViewContainerRef,
+    private dialog: MatDialog
   ) {
     super(service);
 
@@ -37,7 +41,7 @@ export class PetHaveDiagnoseTableComponent
       { columnName: "น้ำหนัก.", columnField: "Weight", cell: (row: PetHaveDiagnose) => row.Weight },
       { columnName: "°C", columnField: "Temperature", cell: (row: PetHaveDiagnose) => row.Temperature },
       { columnName: "วันที่", columnField: "DiagnosisDate", cell: (row: PetHaveDiagnose) => moment(row.DiagnosisDate).format("DD-MM-YYYY HH:mm") },
-      { columnName: "สถานะ", columnField: "StatusPetHasDiagonsis", cell: (row: PetHaveDiagnose) => StatusPetHasDiagonsis[row.StatusPetHasDiagonsis]},
+      { columnName: "สถานะ", columnField: "StatusPetHasDiagonsis", cell: (row: PetHaveDiagnose) => StatusPetHasDiagonsis[row.StatusPetHasDiagonsis] },
       // { columnName: "หายใจ", columnField: "BreathingRate", cell: (row: PetHaveDiagnose) => row.BreathingRate },
       // { columnName: "สีเหงือก", columnField: "MucousMembrane", cell: (row: PetHaveDiagnose) => MucousMembrane[row.MucousMembrane] },
       // { columnName: "เสียงหัวใจ", columnField: "HeartSound", cell: (row: PetHaveDiagnose) => row.HeartSound },
@@ -163,10 +167,21 @@ export class PetHaveDiagnoseTableComponent
   }
 
   petFormClick(): void {
-    this.serviceDialogs.dialogPetInfoAndTable(this.viewCon, { info: undefined, multi: false, option: true })
-      .subscribe(petInfo => {
-        this.WhereId = petInfo ? petInfo.PetId : undefined;
-        this.petControl.patchValue(petInfo ? petInfo.PetName : undefined);
-      });
+    //this.serviceDialogs.dialogPetInfoAndTable(this.viewCon, { info: undefined, multi: false, option: true })
+    //  .subscribe(petInfo => {
+    //    this.WhereId = petInfo ? petInfo.PetId : undefined;
+    //    this.petControl.patchValue(petInfo ? petInfo.PetName : undefined);
+    //  });
+
+    let config: MatDialogConfig = new MatDialogConfig();
+    config.viewContainerRef = this.viewCon;
+    config.data = { info: undefined, multi: false, option: true };
+    config.hasBackdrop = true;
+
+    const dialogRef = this.dialog.open(PetDialogComponent, config);
+    dialogRef.afterClosed().subscribe(petInfo => {
+      this.WhereId = petInfo ? petInfo.PetId : undefined;
+      this.petControl.patchValue(petInfo ? petInfo.PetName : undefined);
+    });
   }
 }

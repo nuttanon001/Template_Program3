@@ -2,6 +2,7 @@
 using System;
 using Template_Program.Models;
 using Template_Program.ViewModels;
+using System.Linq;
 
 namespace Template_Program.Helpers
 {
@@ -23,6 +24,7 @@ namespace Template_Program.Helpers
             CreateMap<Customer, CustomerViewModel>()
                 .ForMember(x => x.FullName, o => o.MapFrom(s => $"คุณ{s.FirstName} {s.LastName}"))
                 .ForMember(x => x.Age, o => o.MapFrom(s => s.BirthDate != null ? AgeFunc(s.BirthDate.Value) : "-"))
+                .ForMember(x => x.ListPets,o => o.MapFrom(s => s.Pets != null ? string.Join(",",s.Pets.Select(z => z.PetName).ToList()) : "-"))
                 .ForMember(x => x.Pets, o => o.Ignore());
 
             #endregion Customer

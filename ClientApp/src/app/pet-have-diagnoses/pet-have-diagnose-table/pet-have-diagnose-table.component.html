@@ -5,11 +5,13 @@
   &nbsp;&nbsp;
   <div class="mx-2">
     <search-box></search-box>
-    &nbsp;&nbsp;
+    <!--
+        &nbsp;&nbsp;
     <mat-form-field>
       <input matInput type="text" [formControl]="petControl"
              placeholder="เลือกสัตว์เลี้ยง" (click)="petFormClick()" readonly class="click-input">
     </mat-form-field>
+    -->
   </div>
   <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear>
     <!-- Generic column definition -->

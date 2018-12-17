@@ -51,30 +51,26 @@
   </form>
 </div>
 <div class="detail">
-  <p-virtualScroller [value]="datasource" [scrollHeight]="mobHeight" [itemSize]="10"
-                     [rows]="50" [cache]="false" [first]="first" [totalRecords]="totalRow"
-                     [lazy]="true" (onLazyLoad)="loadLazy($event)">
-    <p-header>
-      ประวัติการเข้ารับการรักษา
-    </p-header>
-    <ng-template let-row pTemplate="item" let-i="index">
-      <div class="row line-time" style="cursor:pointer" (click)="onShowPetHaveDiagnose(row)">
-        <span class="title-item">{{i + 1}}.</span>
-        <ng-container *ngFor="let column of columns">
-          <span class="title-item">{{column.columnName}}:</span>
-          <i>{{ column.cell(row) }}</i>
-        </ng-container>
-      </div>
-    </ng-template>
-    <!--<ng-template let-row pTemplate="loadingItem">
-      <div class="line-time">
-        <span class="title-item empty-item-text">{{i}}</span>|
-        <ng-container *ngFor="let column of columns">
-          <span class="title-item empty-item-text">{{column.columnName}}:</span>
-          <div class="empty-item-text"></div>
-        </ng-container>
-      </div>
-    </ng-template>-->
-  </p-virtualScroller>
+  <table>
+    <p-table [columns]="columns" [value]="datasource" [lazy]="true" (onLazyLoad)="loadLazy($event)"
+             [paginator]="true" [rowsPerPageOptions]="[50,100,200]"
+             [rows]="50" [totalRecords]="totalRow" [loading]="loading"
+             [rowHover]="true">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns"  [ngStyle]="{'width.px':col.width}">
+            {{col.columnName}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+          <td *ngFor="let col of columns" style="cursor:pointer" (click)="onShowPetHaveDiagnose(rowData)">
+            {{col.cell(rowData)}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </table>
 </div>
 

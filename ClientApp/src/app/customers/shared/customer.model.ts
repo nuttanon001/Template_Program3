@@ -20,6 +20,7 @@ export interface Customer extends BaseModel {
   Age?: string;
   FullName?: string;
   SexString?: string;
+  ListPets?: string;
 }
 
 export enum Sex {

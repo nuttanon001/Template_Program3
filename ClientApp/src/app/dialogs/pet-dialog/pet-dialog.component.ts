@@ -8,7 +8,8 @@ import { DialogInfo } from 'src/app/shared/basemode/dialog-info.model';
 @Component({
   selector: 'app-pet-dialog',
   templateUrl: './pet-dialog.component.html',
-  styleUrls: ['./pet-dialog.component.scss']
+  styleUrls: ['./pet-dialog.component.scss'],
+  //providers: [PetService]
 })
 export class PetDialogComponent extends BaseDialogEntryComponent<Pet, PetService> {
   /** employee-dialog ctor */

@@ -36,6 +36,7 @@
     "material-design-icons": "^3.0.1",
     "ng-fullcalendar": "^1.7.1",
     "popper.js": "^1.14.3",
+    "primeicons": "^1.0.0",
     "primeng": "^7.0.0",
     "rxjs": "^6.3.3",
     "tslint-angular": "^1.1.2",

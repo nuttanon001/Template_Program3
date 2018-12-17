@@ -9,5 +9,6 @@ namespace Template_Program.ViewModels
     {
         public string Age { get; set; }
         public string FullName { get; set; }
+        public string ListPets { get; set; }
     }
 }

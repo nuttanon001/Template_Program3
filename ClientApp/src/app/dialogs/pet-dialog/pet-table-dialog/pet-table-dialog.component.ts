@@ -7,7 +7,8 @@ import * as moment from "moment";
 @Component({
   selector: 'app-pet-table-dialog',
   templateUrl: './pet-table-dialog.component.html',
-  styleUrls: ['./pet-table-dialog.component.scss']
+  styleUrls: ['./pet-table-dialog.component.scss'],
+  providers: [PetService]
 })
 export class PetTableDialogComponent extends BaseTableComponent<Pet, PetService>{
 
@@ -20,7 +21,6 @@ export class PetTableDialogComponent extends BaseTableComponent<Pet, PetService>
       { columnName: "Age.", columnField: "Age", cell: (row: Pet) => row.Age },
       { columnName: "BreedName.", columnField: "BreedName", cell: (row: Pet) => row.BreedName },
       { columnName: "CustomerName.", columnField: "CustomerName", cell: (row: Pet) => row.CustomerName },
-
       { columnName: "Date", columnField: "RegisterDate", cell: (row: Pet) => moment(row.RegisterDate).format("DD-MM-YYYY") },
     ];
     this.displayedColumns = this.columns.map(x => x.columnField);

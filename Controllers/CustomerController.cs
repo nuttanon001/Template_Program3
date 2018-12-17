@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Template_Program.Helper;
 using Template_Program.Models;
@@ -48,7 +50,8 @@ namespace Template_Program.Controllers
                                                   x.PhoneNo.ToLower().Contains(keyword) ||
                                                   x.Remark.ToLower().Contains(keyword) ||
                                                   x.Address.ToLower().Contains(keyword) ||
-                                                  x.Address2.ToLower().Contains(keyword));
+                                                  x.Address2.ToLower().Contains(keyword) ||
+                                                  x.Pets.Any(z => z.PetName.ToLower().Contains(keyword)));
                 }
                 // Order by
                 Func<IQueryable<Customer>, IOrderedQueryable<Customer>> order;
@@ -91,7 +94,7 @@ namespace Template_Program.Controllers
                                         selector: selected => selected,  // Selected
                                         predicate: predicate, // Where
                                         orderBy: order, // Order
-                                        include: null, // Include
+                                        include: x => x.Include(z => z.Pets), // Include
                                         skip: Scroll.Skip ?? 0, // Skip
                                         take: Scroll.Take ?? 10); // Take
                 // Get TotalRow

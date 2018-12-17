@@ -23,6 +23,7 @@ export class CustomerMasterComponent
   ) {
     super(service, serviceCom, serviceDialog, viewCon);
   }
+
   backToSchedule: boolean = false;
   @ViewChild(CustomerTableComponent)
   private tableComponent: CustomerTableComponent;
@@ -40,4 +41,5 @@ export class CustomerMasterComponent
         this.onDetailView({ data: this.displayValue, option: 1 });
       });
   }
+
 }
