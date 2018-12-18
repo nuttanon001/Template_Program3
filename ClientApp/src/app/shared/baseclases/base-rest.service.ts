@@ -24,7 +24,7 @@ export abstract class BaseRestService<Model>{
     protected http: HttpClient,
     protected baseUrl: string,
     protected serviceName: string,
-    protected keyName: string,
+    public keyName: string,
     protected httpErrorHandler: HttpErrorHandler
   ) {
     this.handleError = httpErrorHandler.createHandleError(serviceName);
@@ -131,7 +131,7 @@ export abstract class BaseRestService<Model>{
     // console.log("Data is:", JSON.stringify(nObject));
 
     return this.http.post<Model>(this.baseUrl, JSON.stringify(nObject), httpOptions)
-      .pipe(catchError(this.handleError("Add model", nObject)));
+      .pipe(catchError(this.handleError("Add model", <Model>{})));
   }
 
  
@@ -141,7 +141,7 @@ export abstract class BaseRestService<Model>{
     return this.http.put<Model>(this.baseUrl, JSON.stringify(uObject), {
       headers: httpOptions.headers,
       params: new HttpParams().set("key", uObject[this.keyName].toString())
-    }).pipe(catchError(this.handleError("Update model", uObject)));
+    }).pipe(catchError(this.handleError("Update model", <Model>{})));
   }
 
   /** update with key string */
@@ -149,7 +149,7 @@ export abstract class BaseRestService<Model>{
     return this.http.put<Model>(this.baseUrl, JSON.stringify(uObject), {
       headers: httpOptions.headers,
       params: new HttpParams().set("key", uObject[this.keyName])
-    }).pipe(catchError(this.handleError("Update model", uObject)));
+    }).pipe(catchError(this.handleError("Update model", <Model>{})));
   }
 
   /** put update model */

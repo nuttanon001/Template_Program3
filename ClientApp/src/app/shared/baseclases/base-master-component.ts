@@ -145,10 +145,14 @@ export abstract class BaseMasterComponent
     // insert data
     this.service.addModel(value).subscribe(
       (complete: any) => {
-        if (complete) {
+        if (complete[this.service.keyName]) {
           this.displayValue = complete;
           this.onSaveComplete();
-        } 
+        }
+        else {
+          this.dialogsService.error("Failed !",
+            "เกิดข้อผิดพลาดในการบันทึกข้อมูล(*ลูกค้าตรวจเบอร์ติดต่อ)", this.viewContainerRef);
+        }
         if (this.onLoading) {
           this.onLoading = false;
         }
@@ -166,10 +170,14 @@ export abstract class BaseMasterComponent
     // update data
     this.service.updateModelWithKey(value).subscribe(
       (complete: any) => {
-        if (complete) {
+
+        if (complete[this.service.keyName]) {
           this.displayValue = complete;
           this.onSaveComplete();
-        } 
+        } else {
+          this.dialogsService.error("Failed !",
+            "เกิดข้อผิดพลาดในการบันทึกข้อมูล(*ลูกค้าตรวจเบอร์ติดต่อ)", this.viewContainerRef);
+        }
         if (this.onLoading) {
           this.onLoading = false;
         }
