@@ -36,10 +36,11 @@ export class PetHaveDiagnoseInfoComponent
   ) { super(service, serviceCom) }
 
   // Parameters
-
   // Methods
   onGetDataByKey(InfoValue: PetHaveDiagnose): void {
     if (InfoValue && InfoValue.PetHaveDiagnosisId) {
+      // Set is copying 
+      this.isCopying = InfoValue.Copying;
       this.service.getOneKeyNumber(InfoValue)
         .subscribe(dbData => {
           this.InfoValue = dbData;
@@ -67,6 +68,13 @@ export class PetHaveDiagnoseInfoComponent
                         temp[key] = item[key];
                       }
                     }
+                    // Set copying id is 0 , create and modify is undefined.
+                    if (this.isCopying) {
+                      temp.DiagnosisId = 0;
+                      temp.PetHaveDiagnosisId = 0;
+                      temp.CreateDate = undefined;
+                      temp.ModifyDate = undefined;
+                    }
 
                     this.InfoValue.Diagnoses.push(temp);
                   });
@@ -89,6 +97,13 @@ export class PetHaveDiagnoseInfoComponent
                         temp2[key] = item[key];
                       }
                     }
+                    // Set copying id is 0 , create and modify is undefined.
+                    if (this.isCopying) {
+                      temp2.TreatmentId = 0;
+                      temp2.PetHaveDiagnosisId = 0;
+                      temp2.CreateDate = undefined;
+                      temp2.ModifyDate = undefined;
+                    }
 
                     this.InfoValue.Treatments.push(temp2);
                   });
@@ -96,7 +111,17 @@ export class PetHaveDiagnoseInfoComponent
                 }
               });
           }
-        }, error => console.error(error), () => this.buildForm());
+        }, error => console.error(error), () => {
+          if (this.isCopying) {
+            this.InfoValue.PetHaveDiagnosisId = 0;
+            this.InfoValue.DiagnosisDate = moment().toDate();
+            this.InfoValue.CreateDate = undefined;
+            this.InfoValue.ModifyDate = undefined;
+            this.InfoValue.StatusPetHasDiagonsis = StatusPetHasDiagonsis.Diagnosis;
+          }
+          // Build form
+          this.buildForm();
+        });
     }
     else {
       this.InfoValue = {
@@ -107,7 +132,6 @@ export class PetHaveDiagnoseInfoComponent
         StatusPetHasDiagonsis: StatusPetHasDiagonsis.Diagnosis,
         PetId: 0
       };
-
 
       if (InfoValue) {
         if (InfoValue.PetId) {

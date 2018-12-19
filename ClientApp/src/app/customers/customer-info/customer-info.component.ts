@@ -39,6 +39,9 @@ export class CustomerInfoComponent
   onGetDataByKey(InfoValue: Customer): void {
     if (InfoValue && InfoValue.CustomerId)
     {
+      // if set copy
+      this.isCopying = InfoValue.Copying;
+
       this.service.getOneKeyNumber(InfoValue)
         .subscribe(dbData => {
           this.InfoValue = dbData;
@@ -64,13 +67,30 @@ export class CustomerInfoComponent
                       }
                     }
 
+                    // Set copying id is 0 , create and modify is undefined.
+                    if (this.isCopying) {
+                      temp.PetId = 0;
+                      temp.RegisterDate = moment().toDate();
+                      temp.CustomerId = 0;
+                      temp.CreateDate = undefined;
+                      temp.ModifyDate = undefined;
+                    }
+
                     this.InfoValue.Pets.push(temp);
                   });
                   this.InfoValue.Pets = this.InfoValue.Pets.slice();
                 }
               });
           }
-        }, error => console.error(error), () => this.buildForm());
+        }, error => console.error(error), () => {
+          if (this.isCopying) {
+            this.InfoValue.CustomerId = 0;
+            this.InfoValue.RegisterDate = moment().toDate();
+            this.InfoValue.CreateDate = undefined;
+            this.InfoValue.ModifyDate = undefined;
+          }
+          this.buildForm();
+        });
     }
     else
     {

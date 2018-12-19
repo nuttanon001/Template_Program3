@@ -37,11 +37,23 @@ export class AppointmentInfoComponent
   // Methods
   onGetDataByKey(InfoValue: Appointment): void {
     if (InfoValue && InfoValue.AppointmentId) {
+      // if set copy
+      this.isCopying = InfoValue.Copying;
+
       this.service.getOneKeyNumber(InfoValue)
         .subscribe(dbData => {
           this.InfoValue = dbData;
           this.isValid = true;
-        }, error => console.error(error), () => this.buildForm());
+        }, error => console.error(error), () => {
+          if (this.isCopying) {
+            this.InfoValue.AppointmentId = 0;
+            this.InfoValue.CreateDate = undefined;
+            this.InfoValue.ModifyDate = undefined;
+            this.InfoValue.AppointmentDate = new Date;
+            this.InfoValue.AppointmentStatus = AppointmentStatus.Wait;
+          }
+          this.buildForm();
+        });
     }
     else {
       this.InfoValue = {

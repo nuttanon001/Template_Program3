@@ -121,7 +121,7 @@ namespace Template_Program.Controllers
                                         orderBy: order, // Order
                                         include: x => x.Include(z => z.Pet.Customer).Include(z => z.Pet.Breed), // Include
                                         skip: Scroll.Skip ?? 0, // Skip
-                                        take: Scroll.Take ?? 10); // Take
+                                        take: Scroll.Take ?? 50); // Take
 
                 // Get TotalRow
                 Scroll.TotalRow = await this.repository.GetLengthWithAsync(predicate: predicate);
@@ -146,41 +146,52 @@ namespace Template_Program.Controllers
         [HttpPost]
         public override async Task<IActionResult> Create([FromBody] PetHaveDiagnosis record)
         {
-            // Set date for CrateDate Entity
-            if (record == null)
-                return BadRequest();
-            // +7 Hour
-            record = this.helper.AddHourMethod(record);
-
-            if (record.GetType().GetProperty("CreateDate") != null)
-                record.GetType().GetProperty("CreateDate").SetValue(record, DateTime.Now);
-
-            if (record.Diagnoses != null && record.Diagnoses.Any())
+            var Message = "Data not been found.";
+            try
             {
-                foreach (var item in record.Diagnoses)
-                {
-                    if (item == null)
-                        continue;
+                // Set date for CrateDate Entity
+                if (record == null)
+                    return BadRequest();
+                // +7 Hour
+                record = this.helper.AddHourMethod(record);
 
-                    item.CreateDate = DateTime.Now;
-                }
-            }
+                if (record.GetType().GetProperty("CreateDate") != null)
+                    record.GetType().GetProperty("CreateDate").SetValue(record, DateTime.Now);
 
-            if (record.Treatments != null && record.Treatments.Any())
-            {
-                foreach (var item in record.Treatments)
+                if (record.Diagnoses != null && record.Diagnoses.Any())
                 {
-                    if (item == null)
-                        continue;
-                    item.CreateDate = DateTime.Now;
+                    foreach (var item in record.Diagnoses)
+                    {
+                        if (item == null)
+                            continue;
+
+                        item.CreateDate = DateTime.Now;
+                    }
                 }
 
-                record.StatusPetHasDiagonsis = StatusPetHasDiagonsis.Complate;
+                if (record.Treatments != null && record.Treatments.Any())
+                {
+                    foreach (var item in record.Treatments)
+                    {
+                        if (item == null)
+                            continue;
+                        item.CreateDate = DateTime.Now;
+                    }
+
+                    record.StatusPetHasDiagonsis = StatusPetHasDiagonsis.Complate;
+                }
+
+                if (await this.repository.AddAsync(record) == null)
+                    return BadRequest();
+                return new JsonResult(record, this.DefaultJsonSettings);
+            }
+            catch(Exception ex)
+            {
+                Message = $"Has error {ex.ToString()}";
             }
 
-            if (await this.repository.AddAsync(record) == null)
-                return BadRequest();
-            return new JsonResult(record, this.DefaultJsonSettings);
+            return BadRequest(new { Message });
+            
         }
 
         // PUT: api/PetHaveDiagnosis/

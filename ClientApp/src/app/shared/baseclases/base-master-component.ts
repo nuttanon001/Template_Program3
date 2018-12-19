@@ -107,9 +107,10 @@ export abstract class BaseMasterComponent
   // on detail view
   onDetailView(value?: { data: Model, option: number }): void {
     if (value) {
-      if (value.option === 1 || value.option === 2) {
+      if (value.option === 1 || value.option === 2 || value.option === 3) {
         this.displayValue = value.data;
         this.displayValue.ReadOnly = value.option === 2;
+        this.displayValue.Copying = value.option === 3;
         // Check status can edit if not readonly
         this.onLoading = true;
         this.ShowDetail = true;

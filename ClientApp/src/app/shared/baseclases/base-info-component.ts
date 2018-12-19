@@ -30,6 +30,7 @@ export abstract class BaseInfoComponent<
   subscription2: Subscription;
   denySave: boolean = false;
   isValid: boolean = false;
+  isCopying: boolean = false;
   /*
    * Methods
    */

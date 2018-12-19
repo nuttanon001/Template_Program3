@@ -24,11 +24,21 @@ export class MedicineInfoComponent
   // Methods
   onGetDataByKey(InfoValue: Medicine): void {
     if (InfoValue && InfoValue.MedicineId) {
+      // if set copy
+      this.isCopying = InfoValue.Copying;
+
       this.service.getOneKeyNumber(InfoValue)
         .subscribe(dbData => {
           this.InfoValue = dbData;
           this.isValid = true;
-        }, error => console.error(error), () => this.buildForm());
+        }, error => console.error(error), () => {
+          if (this.isCopying) {
+            this.InfoValue.MedicineId = 0;
+            this.InfoValue.CreateDate = undefined;
+            this.InfoValue.ModifyDate = undefined;
+          }
+          this.buildForm();
+        });
     }
     else {
       this.InfoValue = {

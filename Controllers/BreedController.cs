@@ -76,7 +76,7 @@ namespace Template_Program.Controllers
                                         orderBy: order, // Order
                                         include: null, // Include
                                         skip: Scroll.Skip ?? 0, // Skip
-                                        take: Scroll.Take ?? 10); // Take
+                                        take: Scroll.Take ?? 50); // Take
 
                 // Get TotalRow
                 Scroll.TotalRow = await this.repository.GetLengthWithAsync(predicate: predicate);

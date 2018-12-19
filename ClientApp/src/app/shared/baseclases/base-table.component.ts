@@ -76,7 +76,7 @@ export class BaseTableComponent<Model, Service extends BaseRestService<Model>> i
           this.isLoadingResults = true;
           let scroll: Scroll = {
             Skip: this.paginator.pageIndex * this.paginator.pageSize,
-            Take: this.paginator.pageSize || 10,
+            Take: this.paginator.pageSize || 50,
             Filter: this.searchBox.search2,
             SortField: this.sort.active,
             SortOrder: this.sort.direction === "desc" ? 1 : -1,
